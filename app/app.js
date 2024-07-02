@@ -3,6 +3,9 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const connectDB = require('../config/db');
 
+// Import routes
+const adminRoutes = require('./routes/adminRoutes');
+
 // Connect app to MongoDB
 connectDB();
 const app = express();
@@ -19,5 +22,10 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, '../public')));
 
 // Routes
+app.get('/', (req, res) => {
+  res.render('index');
+});
+
+app.use('/admin', adminRoutes);
 
 module.exports = app;
