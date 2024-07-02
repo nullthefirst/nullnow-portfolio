@@ -6,7 +6,7 @@ const adminController = require('../controllers/adminController');
 router
   .route('/register')
   .get((req, res) => {
-    res.render('admin');
+    res.render('admin', { message: '' });
   })
   .post(adminController.register);
 
