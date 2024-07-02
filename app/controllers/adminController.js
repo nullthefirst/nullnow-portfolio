@@ -4,20 +4,22 @@ const bcrypt = require('bcrypt');
 // Admin registration
 exports.register = async (req, res) => {
   try {
+    console.log(req.body);
+
     const { username, password } = req.body;
 
     // Check if the username already exists
     const existingAdmin = await Admin.findOne({ username });
     if (existingAdmin) {
-      return res.status(400).json({ message: 'Username already exists' });
+      return res.status(400).render('admin', { message: 'Username already exists' });
     }
 
     // Create new admin
     const newAdmin = new Admin({ username, password });
     await newAdmin.save();
-    res.status(201).json({ message: 'Admin registered successfully' });
+    res.status(201).render('admin', { message: 'Admin registered successfully' });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).render('admin', { message: err.message });
   }
 };
 
